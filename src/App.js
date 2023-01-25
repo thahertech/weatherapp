@@ -4,17 +4,17 @@ import Titles from "./components/Titles";
 import Form from "./components/Form";
 import Weather from "./components/Weather";
 
-const API_KEY = "5e010d21a60ca7e400afcc53020149ce";
+const API_KEY = "b0752da6c1421e745ba5b2671c3878ff";
 
 class App extends React.Component {
-  state = {
+  state = { 
     temperature: undefined,
     city: undefined,
     country: undefined,
     humidity: undefined,
     description: undefined,
     error: undefined
-  }
+  } 
   getWeather = async (e) => {
     e.preventDefault();
     const city = e.target.elements.city.value;
@@ -22,7 +22,7 @@ class App extends React.Component {
     const api_call = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${API_KEY}&units=metric`);
     const data = await api_call.json();
     if (city && country) {
-      this.setState({
+      this.setState({ 
         temperature: data.main.temp,
         city: data.name,
         country: data.sys.country,
@@ -37,10 +37,12 @@ class App extends React.Component {
         country: undefined,
         humidity: undefined,
         description: undefined,
-        error: "Please enter the values."
+        error: "Something went wrong."
       });
     }
+
   }
+  
   render() {
     return (
       <div>
@@ -68,6 +70,7 @@ class App extends React.Component {
         </div>
       </div>
     );
+    
   }
 };
 
