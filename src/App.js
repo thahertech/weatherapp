@@ -1,10 +1,17 @@
 import React from "react";
-
 import Titles from "./components/Titles";
+
+
 import Form from "./components/Form";
 import Weather from "./components/Weather";
 
-const API_KEY = "b0752da6c1421e745ba5b2671c3878ff";
+//Credentials.js file contains weatherApiKeyToken
+
+ const API_KEY = require("./credentials");
+
+
+
+
 
 class App extends React.Component {
   state = { 
