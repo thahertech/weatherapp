@@ -1,27 +1,38 @@
 import React from "react";
 import Titles from "./components/Titles";
 
-
 import Form from "./components/Form";
 import Weather from "./components/Weather";
+import clearsky from "./pic/Clouds.gif";
+import fewclouds from "./pic/ScatteredClouds.gif";
+import snowsky from "./pic/Snow.gif";
+import rainfall from "./pic/RainClouds.gif";
+import API_KEY from "./credentials.js"; 
+//Credentials.js file contains weatherApiKeyToken !!
 
-//Credentials.js file contains weatherApiKeyToken
-
- const API_KEY = require("./credentials");
 
 
+ console.log(API_KEY);
 
-
+ const weatherImages = {
+  'clear sky': clearsky,
+  'few clouds': fewclouds,
+  'rainfall': rainfall,
+  'snow': snowsky,
+  'light snow': snowsky,
+};
 
 class App extends React.Component {
-  state = { 
+  state = {
     temperature: undefined,
     city: undefined,
     country: undefined,
     humidity: undefined,
     description: undefined,
-    error: undefined
-  } 
+    error: undefined,
+    imageUrl: undefined 
+  };
+  
   getWeather = async (e) => {
     e.preventDefault();
     const city = e.target.elements.city.value;
@@ -46,18 +57,35 @@ class App extends React.Component {
         description: undefined,
         error: "Something went wrong."
       });
+
     }
+      // Sets the image URL based on the weather description
+  let imageUrl = weatherImages[data.weather[0].description.toLowerCase()];
+      // Check the source of image used
+  console.log('Image URL:', imageUrl);
+
+  this.setState({ imageUrl });
+
 
   }
   
   render() {
+    const { description, imageUrl } = this.state;
+  
+    const titleContainerStyle = {
+      backgroundImage: imageUrl ? `url(${imageUrl})` : '',
+    };
+
+    console.log(titleContainerStyle.backgroundImage)
+
+  
     return (
       <div>
         <div className="wrapper">
           <div className="main">
             <div className="container">
               <div className="row">
-                <div className="col-xs-5 title-container">
+                <div className="col-xs-5 title-container" style={titleContainerStyle}>
                   <Titles />
                 </div>
                 <div className="col-xs-7 form-container">
@@ -67,7 +95,7 @@ class App extends React.Component {
                     humidity={this.state.humidity}
                     city={this.state.city}
                     country={this.state.country}
-                    description={this.state.description}
+                    description={description}
                     error={this.state.error}
                   />
                 </div>
@@ -77,8 +105,8 @@ class App extends React.Component {
         </div>
       </div>
     );
-    
   }
+  
 };
 
 export default App;

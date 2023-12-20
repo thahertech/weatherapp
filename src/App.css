@@ -22,15 +22,24 @@ body {
   margin: 0 auto;
 }
 
+.weather__image {
+  max-width: 100%;
+  height: auto;
+  margin-top: 10px; 
+}
+
+
 .title-container {
+  z-index: 2;
   height: 80vh;
-  background: url("pic/Weather.gif") center center ;
-  background-size: cover;
+  background-size: contain;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   color: rgb(243, 228, 228);
+  
+  
   
 }
 
@@ -120,6 +129,9 @@ button:active {
   color: #fff;
   font-weight: 200;
 }
+
+
+
 
 .weather__error {
   color: #f16051;
